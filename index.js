@@ -1,3 +1,3 @@
 'use strict';
-const patientrecordcontract = require('./patientrecordcontract.js');
-module.exports.contracts = [patientrecordcontract];
+const productcontract = require('./productcontract.js');
+module.exports.contracts = [productcontract];

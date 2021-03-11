@@ -1,6 +1,6 @@
-{   "name": "patientrecordcontract",
+{   "name": "productcontract",
     "version": "0.0.2",
-    "description": "Patient record contract",
+    "description": "Product contract",
     "main": "index.js",
     "engines": {
         "node": ">=8",
