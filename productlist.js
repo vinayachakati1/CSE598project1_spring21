@@ -6,7 +6,7 @@ const ProductRecord = require('./productrecord.js');
 
 class Productlist extends StateList {
     constructor(ctx) {
-        super(ctx,'edu.asu.patientrecordlist');
+        super(ctx,'edu.asu.productlist');
         this.use(ProductRecord);
     }
 

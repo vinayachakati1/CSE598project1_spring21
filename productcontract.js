@@ -11,7 +11,7 @@ const ProductRecord = require('./productrecord.js');
 const ProductList = require('./productlist.js');
 
 
-class PatientRecordContext extends Context {
+class ProductRecordContext extends Context {
 
     constructor() {
         super();
@@ -27,7 +27,7 @@ class PatientRecordContext extends Context {
 class Productcontract extends Contract {
 
     constructor() {
-        super('edu.asu.patientrecordcontract');
+        super('edu.asu.productcontract');
     }
 
     /**
@@ -42,7 +42,7 @@ class Productcontract extends Contract {
      * @param {Context} ctx the transaction context
      */
     async init(ctx) {
-        console.log('Instantiated the patient record smart contract.');
+        console.log('Instantiated the product record smart contract.');
     }
 
     //  TASK-7: Implement the unknownTransaction to throw an error when
@@ -74,19 +74,19 @@ class Productcontract extends Contract {
      * @param {String} productId productID
      * @param {String} name name
      * @param {String} mfg_date date of manufacture
-     * @param {String} prodcutType product type
+     * @param {String} productType product type
      */
-    async createPatientRecord(ctx,productId,name,mfg_date,prodcutType){
+    async createProductRecord(ctx,productId,name,mfg_date,productType){
         let precord = ProductRecord.createInstance(productId,name,mfg_date,productType);
         await ctx.productList.addPRecord(precord);
         return precord.toBuffer();
     }
 
-    async getProductByKey(ctx, prodcutId, name){
+    async getProductByKey(ctx, productId, name){
         //GRADED FUNCTION
         let precordKey = ProductRecord.makeKey([productId,name]);
-        //TASK-1: Use a method from patientRecordList to read a record by key
-        let precord = await ctx.productList.getPRecord(precordKey);
+        //TASK-1: Use a method from productRecord to read a record by key
+        // get product record by calling the method of ProductList class
         return JSON.stringify(precord)
     }
 
@@ -162,16 +162,11 @@ class Productcontract extends Contract {
      * @param {String} product type to be queried
     */
    async queryByProductType(ctx, productType ) {
-     //  GRADED FUNCTION
-    //   TASK-4: Write the couchDB selector that queries using productType
-    // and uses the index created for gender
-    let queryString = {
-        // "selector": {
-        //     "fieldname": arg_val
-        // },
-        // "use_index": ["IndexDoc", "IndexName"]
-    }
-    let queryResults = await this.queryWithQueryString(ctx, JSON.stringify(queryString));
+        //  GRADED FUNCTION
+        //   TASK-4 Complete teh queryString JSON Object to query using the ProductType Index  defined .(META-INF folder)
+        //   Construct the JSON Couch DB selectir queryString that uses ProductType Index
+        //   Pass the query string built to queryWithueryString
+
     return queryResults;
 
 }
@@ -183,16 +178,11 @@ class Productcontract extends Contract {
      * @param {String} mfg_date to queried
     */
    async queryByMfgdate(ctx, mfg_date) {
-       //   GRADED FUNCTION
-      //   TASK-5: Write a couchDB selector query that queries using mfg_date
-      //  and uses te index created for mfg_date
-    let queryString = {
-        // "selector": {
-        //     "fieldname": arg_val
-        // },
-        // "use_index": ["IndexDoc", "IndexName"]
-    }
-    let queryResults = await this.queryWithQueryString(ctx, JSON.stringify(queryString));
+         //   GRADED FUNCTION
+         //   TASK-5: Write new index for MfgDate and write a CouchDB selector query that uses it to query by MfgDate
+         //    Construct the JSON DB selector that uses MfgDateIndex
+         //    Pass the query string built to the queryWithQueryString()
+
     return queryResults;
 
 }
@@ -204,19 +194,11 @@ class Productcontract extends Contract {
      * @param {String} productType productType to queried
     */
    async queryByProduct_Type_Dual(ctx, productType1, productType2) {
-    //   GRADED FUCNTION
-    //     TASK-6: Write a CouchDB selector query that queries using two prodcut types
-    //    and uses the index created for productType
-    let queryString = {
-        // "selector": {
-        //     "fieldname": {
-        //         "$in": [arg1, arg2
-        //     }
-        // },
-        // "use_index": ["IndexDoc", "IndexName"]
-    }
-
-    let queryResults = await this.queryWithQueryString(ctx, JSON.stringify(queryString));
+        //  GRADED FUCNTION
+        //  TASK-6: Write a CouchDB selector query that queries using two product types
+        //  and uses the index created for prodcutType
+        //  Construct the JSON couch DB selector that uses two product types
+        //  Pass the query string to queryWithQueryString
     return queryResults;
 
 }
